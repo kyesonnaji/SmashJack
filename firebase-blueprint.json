@@ -1,0 +1,189 @@
+{
+  "entities": {
+    "Profile": {
+      "title": "Profile",
+      "description": "Public player profile without PII, storing username, avatar, coin balance, XP, streak, and equipped cosmetics.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "username": { "type": "string", "minLength": 3, "maxLength": 24, "pattern": "^[a-zA-Z0-9_]+$" },
+        "avatarUrl": { "type": "string", "maxLength": 512 },
+        "coins": { "type": "integer" },
+        "xp": { "type": "integer" },
+        "winStreak": { "type": "integer" },
+        "isOnline": { "type": "boolean" },
+        "presenceStatus": { "type": "string", "enum": ["Online", "In Lobby", "In Game", "Offline"] },
+        "equippedCardBack": { "type": "string", "maxLength": 64 },
+        "equippedFelt": { "type": "string", "maxLength": 64 },
+        "equippedFrame": { "type": "string", "maxLength": 64 },
+        "xpBoostUntil": { "type": "integer" },
+        "lastDailySpin": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "username", "coins", "xp", "winStreak", "isOnline", "presenceStatus", "createdAt", "updatedAt"]
+    },
+    "Friendship": {
+      "title": "Friendship",
+      "description": "Bidirectional friend request and accepted connection between two players.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "friendId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "status": { "type": "string", "enum": ["pending", "accepted"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "friendId", "status", "createdAt", "updatedAt"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "Direct message or room chat message with optional embedded wager invite.",
+      "type": "object",
+      "properties": {
+        "senderId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "senderName": { "type": "string", "minLength": 1, "maxLength": 32 },
+        "receiverId": { "type": "string", "maxLength": 128 },
+        "roomId": { "type": "string", "maxLength": 128 },
+        "content": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "wagerId": { "type": "string", "maxLength": 128 },
+        "reactions": { "type": "object" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["senderId", "senderName", "content", "createdAt"]
+    },
+    "InventoryItem": {
+      "title": "InventoryItem",
+      "description": "Owned snack token, cosmetic item, or XP booster belonging to a player.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "itemId": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "itemName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "itemType": { "type": "string", "enum": ["snack", "cosmetic", "booster"] },
+        "quantity": { "type": "integer" },
+        "equipped": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "itemId", "itemName", "itemType", "quantity", "equipped", "updatedAt"]
+    },
+    "Wager": {
+      "title": "Wager",
+      "description": "1v1 wager negotiation and match settlement between two players.",
+      "type": "object",
+      "properties": {
+        "creatorId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "opponentId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "creatorOffer": { "type": "object" },
+        "opponentOffer": { "type": "object" },
+        "creatorApproved": { "type": "boolean" },
+        "opponentApproved": { "type": "boolean" },
+        "gameType": { "type": "string", "enum": ["blackjack", "highlow", "roulette", "dice"] },
+        "status": { "type": "string", "enum": ["negotiating", "active", "completed", "cancelled"] },
+        "winnerId": { "type": "string", "maxLength": 128 },
+        "roomId": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["creatorId", "opponentId", "creatorOffer", "opponentOffer", "creatorApproved", "opponentApproved", "gameType", "status", "createdAt", "updatedAt"]
+    },
+    "GameRoom": {
+      "title": "GameRoom",
+      "description": "Multiplayer casino room for 2 to 8 players with group pot stakes and synchronized game state.",
+      "type": "object",
+      "properties": {
+        "roomCode": { "type": "string", "minLength": 6, "maxLength": 6, "pattern": "^[A-Z0-9]{6}$" },
+        "hostId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "gameType": { "type": "string", "enum": ["blackjack", "highlow", "roulette", "dice"] },
+        "maxPlayers": { "type": "integer" },
+        "status": { "type": "string", "enum": ["waiting", "playing", "finished"] },
+        "players": { "type": "array" },
+        "playerIds": { "type": "array" },
+        "gameState": { "type": "object" },
+        "winnerId": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["roomCode", "hostId", "gameType", "maxPlayers", "status", "players", "playerIds", "gameState", "createdAt", "updatedAt"]
+    },
+    "IouLedger": {
+      "title": "IouLedger",
+      "description": "Who Owes Who snack/food settlement tracker generated from completed wagers and rooms.",
+      "type": "object",
+      "properties": {
+        "winnerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "loserId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "winnerName": { "type": "string", "minLength": 1, "maxLength": 32 },
+        "loserName": { "type": "string", "minLength": 1, "maxLength": 32 },
+        "stakeLabel": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "gameType": { "type": "string", "enum": ["blackjack", "highlow", "roulette", "dice"] },
+        "settled": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["winnerId", "loserId", "winnerName", "loserName", "stakeLabel", "gameType", "settled", "createdAt", "updatedAt"]
+    },
+    "MatchHistory": {
+      "title": "MatchHistory",
+      "description": "Completed match record with XP earned, coins delta, and snack stakes.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "gameType": { "type": "string", "enum": ["blackjack", "highlow", "roulette", "dice"] },
+        "mode": { "type": "string", "enum": ["solo", "1v1", "group"] },
+        "result": { "type": "string", "enum": ["won", "lost", "push"] },
+        "coinsDelta": { "type": "integer" },
+        "xpEarned": { "type": "integer" },
+        "summary": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "gameType", "mode", "result", "coinsDelta", "xpEarned", "summary", "createdAt"]
+    },
+    "TestDoc": {
+      "title": "TestDoc",
+      "description": "Connection validation sentinel document.",
+      "type": "object",
+      "properties": {
+        "ok": { "type": "boolean" }
+      }
+    }
+  },
+  "firestore": {
+    "/profiles/{userId}": {
+      "schema": { "$ref": "#/entities/Profile" },
+      "description": "Public player profile keyed by Firebase Auth UID."
+    },
+    "/friendships/{friendshipId}": {
+      "schema": { "$ref": "#/entities/Friendship" },
+      "description": "Friend request and friendship records between players."
+    },
+    "/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/Message" },
+      "description": "Direct messages and room chat messages."
+    },
+    "/inventory/{itemId}": {
+      "schema": { "$ref": "#/entities/InventoryItem" },
+      "description": "Player-owned snack tokens, cosmetics, and boosters."
+    },
+    "/wagers/{wagerId}": {
+      "schema": { "$ref": "#/entities/Wager" },
+      "description": "1v1 wager negotiations and outcomes."
+    },
+    "/game_rooms/{roomId}": {
+      "schema": { "$ref": "#/entities/GameRoom" },
+      "description": "Live multiplayer casino rooms (2 to 8 players)."
+    },
+    "/ious/{iouId}": {
+      "schema": { "$ref": "#/entities/IouLedger" },
+      "description": "Who Owes Who food settlement records."
+    },
+    "/match_history/{matchId}": {
+      "schema": { "$ref": "#/entities/MatchHistory" },
+      "description": "Player match logs and XP/coin awards."
+    },
+    "/test/{docId}": {
+      "schema": { "$ref": "#/entities/TestDoc" },
+      "description": "Read-only connection verification sentinel."
+    }
+  }
+}

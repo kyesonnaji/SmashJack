@@ -1,0 +1,907 @@
+{
+  "authUsers": [
+    {
+      "uid": "usr_71e109ce0e76",
+      "email": "kif_1895@example.com",
+      "passwordHash": "e7494794cd7802856edd8b09bb778d9b80be3e45cc695b710440601fba83c4e7db6408bd7b0a76857cdb55ef7b8c4b3cf4d68c67a54782cdf437f990d6ab0287",
+      "salt": "1b0d72adcfab48841f187a1e9364e7cc"
+    }
+  ],
+  "profiles": [
+    {
+      "uid": "player_tunde",
+      "username": "Tunde",
+      "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=Tunde",
+      "coins": 1790,
+      "xp": 3443,
+      "winStreak": 0,
+      "isOnline": true,
+      "presenceStatus": "In Lobby",
+      "equippedCardBack": "cosmetic_gold_foil",
+      "equippedFelt": "cosmetic_emerald_felt",
+      "equippedFrame": "cosmetic_gold_frame",
+      "xpBoostUntil": 0,
+      "lastDailySpin": 0,
+      "createdAt": "2026-11-24T09:05:34.769Z",
+      "updatedAt": "2026-11-24T09:08:13.836Z",
+      "isBot": true
+    },
+    {
+      "uid": "player_sarah",
+      "username": "Sarah",
+      "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=Sarah",
+      "coins": 1420,
+      "xp": 1980,
+      "winStreak": 2,
+      "isOnline": true,
+      "presenceStatus": "Online",
+      "equippedCardBack": "default",
+      "equippedFelt": "cosmetic_emerald_felt",
+      "equippedFrame": "default",
+      "xpBoostUntil": 0,
+      "lastDailySpin": 0,
+      "createdAt": "2026-11-24T09:05:34.769Z",
+      "updatedAt": "2026-11-24T09:05:34.769Z",
+      "isBot": true
+    },
+    {
+      "uid": "player_kofi",
+      "username": "Kofi",
+      "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=Kofi",
+      "coins": 2650,
+      "xp": 4820,
+      "winStreak": 6,
+      "isOnline": true,
+      "presenceStatus": "In Game",
+      "equippedCardBack": "cosmetic_neon_flame",
+      "equippedFelt": "cosmetic_crimson_felt",
+      "equippedFrame": "cosmetic_ember_frame",
+      "xpBoostUntil": 0,
+      "lastDailySpin": 0,
+      "createdAt": "2026-11-24T09:05:34.769Z",
+      "updatedAt": "2026-11-24T09:05:34.769Z",
+      "isBot": true
+    },
+    {
+      "uid": "player_maya",
+      "username": "Maya",
+      "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=Maya",
+      "coins": 960,
+      "xp": 760,
+      "winStreak": 1,
+      "isOnline": true,
+      "presenceStatus": "Online",
+      "equippedCardBack": "default",
+      "equippedFelt": "default",
+      "equippedFrame": "default",
+      "xpBoostUntil": 0,
+      "lastDailySpin": 0,
+      "createdAt": "2026-11-24T09:05:34.769Z",
+      "updatedAt": "2026-11-24T09:05:34.769Z",
+      "isBot": true
+    },
+    {
+      "uid": "demo_02918010795a",
+      "username": "Guest_4915",
+      "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=Guest_4915",
+      "coins": 750,
+      "xp": 120,
+      "winStreak": 0,
+      "isOnline": true,
+      "presenceStatus": "Online",
+      "equippedCardBack": "default",
+      "equippedFelt": "default",
+      "equippedFrame": "default",
+      "xpBoostUntil": 0,
+      "lastDailySpin": 0,
+      "createdAt": "2026-11-24T09:06:07.483Z",
+      "updatedAt": "2026-11-24T09:06:07.483Z"
+    },
+    {
+      "uid": "demo_40e03bfdc1c6",
+      "username": "Guest_3916",
+      "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=Guest_3916",
+      "coins": 825,
+      "xp": 180,
+      "winStreak": 1,
+      "isOnline": true,
+      "presenceStatus": "In Lobby",
+      "equippedCardBack": "default",
+      "equippedFelt": "default",
+      "equippedFrame": "default",
+      "xpBoostUntil": 0,
+      "lastDailySpin": 0,
+      "createdAt": "2026-11-24T09:06:38.100Z",
+      "updatedAt": "2026-11-24T09:06:43.090Z"
+    },
+    {
+      "uid": "usr_71e109ce0e76",
+      "username": "KifVIP_1895",
+      "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=KifVIP_1895",
+      "coins": 450,
+      "xp": 23,
+      "winStreak": 0,
+      "isOnline": true,
+      "presenceStatus": "In Lobby",
+      "equippedCardBack": "default",
+      "equippedFelt": "default",
+      "equippedFrame": "default",
+      "xpBoostUntil": 0,
+      "lastDailySpin": 0,
+      "createdAt": "2026-11-24T09:08:03.255Z",
+      "updatedAt": "2026-11-24T09:08:13.836Z"
+    }
+  ],
+  "friendships": [
+    {
+      "id": "fr_9ddae1646daa",
+      "userId": "demo_02918010795a",
+      "friendId": "player_tunde",
+      "status": "accepted",
+      "createdAt": "2026-11-24T09:06:07.483Z",
+      "updatedAt": "2026-11-24T09:06:07.483Z"
+    },
+    {
+      "id": "fr_cf5e8941068a",
+      "userId": "demo_02918010795a",
+      "friendId": "player_sarah",
+      "status": "accepted",
+      "createdAt": "2026-11-24T09:06:07.483Z",
+      "updatedAt": "2026-11-24T09:06:07.483Z"
+    },
+    {
+      "id": "fr_dbb59d39a804",
+      "userId": "player_maya",
+      "friendId": "demo_02918010795a",
+      "status": "pending",
+      "createdAt": "2026-11-24T09:06:07.483Z",
+      "updatedAt": "2026-11-24T09:06:07.483Z"
+    },
+    {
+      "id": "fr_bd0221a2bfae",
+      "userId": "demo_40e03bfdc1c6",
+      "friendId": "player_tunde",
+      "status": "accepted",
+      "createdAt": "2026-11-24T09:06:38.100Z",
+      "updatedAt": "2026-11-24T09:06:38.100Z"
+    },
+    {
+      "id": "fr_ba32bd7755f7",
+      "userId": "demo_40e03bfdc1c6",
+      "friendId": "player_sarah",
+      "status": "accepted",
+      "createdAt": "2026-11-24T09:06:38.100Z",
+      "updatedAt": "2026-11-24T09:06:38.100Z"
+    },
+    {
+      "id": "fr_3c7e3b0101bd",
+      "userId": "player_maya",
+      "friendId": "demo_40e03bfdc1c6",
+      "status": "pending",
+      "createdAt": "2026-11-24T09:06:38.100Z",
+      "updatedAt": "2026-11-24T09:06:38.100Z"
+    },
+    {
+      "id": "fr_04f6b460fb33",
+      "userId": "usr_71e109ce0e76",
+      "friendId": "player_tunde",
+      "status": "accepted",
+      "createdAt": "2026-11-24T09:08:03.256Z",
+      "updatedAt": "2026-11-24T09:08:03.256Z"
+    },
+    {
+      "id": "fr_be57f20dbaff",
+      "userId": "usr_71e109ce0e76",
+      "friendId": "player_sarah",
+      "status": "accepted",
+      "createdAt": "2026-11-24T09:08:03.256Z",
+      "updatedAt": "2026-11-24T09:08:03.256Z"
+    },
+    {
+      "id": "fr_a61f8b18427c",
+      "userId": "player_maya",
+      "friendId": "usr_71e109ce0e76",
+      "status": "pending",
+      "createdAt": "2026-11-24T09:08:03.256Z",
+      "updatedAt": "2026-11-24T09:08:03.256Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg_59c4d9b8b3cb",
+      "senderId": "player_tunde",
+      "senderName": "Tunde",
+      "receiverId": "demo_02918010795a",
+      "content": "Welcome to the lounge, Guest_4915! Ready to put a Monday Snack on Blackjack?",
+      "reactions": {},
+      "createdAt": "2026-11-24T09:06:07.483Z"
+    },
+    {
+      "id": "msg_1d08bf2e289e",
+      "senderId": "player_tunde",
+      "senderName": "Tunde",
+      "receiverId": "demo_40e03bfdc1c6",
+      "content": "Welcome to the lounge, Guest_3916! Ready to put a Monday Snack on Blackjack?",
+      "reactions": {},
+      "createdAt": "2026-11-24T09:06:38.100Z"
+    },
+    {
+      "id": "msg_8db21ae14064",
+      "senderId": "player_tunde",
+      "senderName": "Tunde",
+      "receiverId": "usr_71e109ce0e76",
+      "content": "Welcome to the lounge, KifVIP_1895! Ready to put a Monday Snack on Blackjack?",
+      "reactions": {},
+      "createdAt": "2026-11-24T09:08:03.256Z"
+    },
+    {
+      "id": "msg_ef4f419c9495",
+      "senderId": "usr_71e109ce0e76",
+      "senderName": "KifVIP_1895",
+      "receiverId": "player_tunde",
+      "content": "Let us run a Friday Snack wager!",
+      "reactions": {},
+      "createdAt": "2026-11-24T09:08:14.725Z"
+    },
+    {
+      "id": "msg_5141e60fe8d1",
+      "senderId": "usr_71e109ce0e76",
+      "senderName": "KifVIP_1895",
+      "receiverId": "player_tunde",
+      "content": "Sent a 1v1 BLACKJACK wager invite: Egg + 50 Coins",
+      "wagerId": "wg_eed0e3cafe1e",
+      "reactions": {},
+      "createdAt": "2026-11-24T09:08:15.436Z"
+    }
+  ],
+  "inventory": [
+    {
+      "id": "inv_9a32d2834b7e",
+      "userId": "demo_02918010795a",
+      "itemId": "snack_egg",
+      "itemName": "Egg",
+      "itemType": "snack",
+      "quantity": 2,
+      "equipped": false,
+      "updatedAt": "2026-11-24T09:06:07.483Z"
+    },
+    {
+      "id": "inv_dd8ec68208d7",
+      "userId": "demo_02918010795a",
+      "itemId": "snack_monday",
+      "itemName": "Monday Snack",
+      "itemType": "snack",
+      "quantity": 1,
+      "equipped": false,
+      "updatedAt": "2026-11-24T09:06:07.483Z"
+    },
+    {
+      "id": "inv_78b2f701eb28",
+      "userId": "demo_02918010795a",
+      "itemId": "snack_grilled_meat",
+      "itemName": "Grilled Meat / Suya Platter",
+      "itemType": "snack",
+      "quantity": 1,
+      "equipped": false,
+      "updatedAt": "2026-11-24T09:06:07.483Z"
+    },
+    {
+      "id": "inv_693a86cf920a",
+      "userId": "demo_40e03bfdc1c6",
+      "itemId": "snack_egg",
+      "itemName": "Egg",
+      "itemType": "snack",
+      "quantity": 2,
+      "equipped": false,
+      "updatedAt": "2026-11-24T09:06:38.100Z"
+    },
+    {
+      "id": "inv_02ff4c6b103a",
+      "userId": "demo_40e03bfdc1c6",
+      "itemId": "snack_monday",
+      "itemName": "Monday Snack",
+      "itemType": "snack",
+      "quantity": 1,
+      "equipped": false,
+      "updatedAt": "2026-11-24T09:06:38.100Z"
+    },
+    {
+      "id": "inv_c4a2f6c30ab4",
+      "userId": "demo_40e03bfdc1c6",
+      "itemId": "snack_grilled_meat",
+      "itemName": "Grilled Meat / Suya Platter",
+      "itemType": "snack",
+      "quantity": 1,
+      "equipped": false,
+      "updatedAt": "2026-11-24T09:06:38.100Z"
+    },
+    {
+      "id": "inv_5a7a38719287",
+      "userId": "usr_71e109ce0e76",
+      "itemId": "snack_egg",
+      "itemName": "Egg",
+      "itemType": "snack",
+      "quantity": 2,
+      "equipped": false,
+      "updatedAt": "2026-11-24T09:08:03.255Z"
+    },
+    {
+      "id": "inv_e33facebb225",
+      "userId": "usr_71e109ce0e76",
+      "itemId": "snack_monday",
+      "itemName": "Monday Snack",
+      "itemType": "snack",
+      "quantity": 1,
+      "equipped": false,
+      "updatedAt": "2026-11-24T09:08:03.255Z"
+    },
+    {
+      "id": "inv_c868c87ffcf3",
+      "userId": "usr_71e109ce0e76",
+      "itemId": "snack_grilled_meat",
+      "itemName": "Grilled Meat / Suya Platter",
+      "itemType": "snack",
+      "quantity": 1,
+      "equipped": false,
+      "updatedAt": "2026-11-24T09:08:03.255Z"
+    }
+  ],
+  "wagers": [
+    {
+      "id": "wg_eed0e3cafe1e",
+      "creatorId": "usr_71e109ce0e76",
+      "opponentId": "player_tunde",
+      "creatorName": "KifVIP_1895",
+      "opponentName": "Tunde",
+      "creatorOffer": {
+        "snackItemId": "snack_egg",
+        "snackName": "Egg",
+        "coins": 50
+      },
+      "opponentOffer": {
+        "snackItemId": "snack_monday",
+        "snackName": "Monday Snack",
+        "coins": 50
+      },
+      "creatorApproved": true,
+      "opponentApproved": true,
+      "gameType": "blackjack",
+      "status": "active",
+      "createdAt": "2026-11-24T09:08:15.436Z",
+      "updatedAt": "2026-11-24T09:08:15.436Z",
+      "roomId": "rm_2b7784701f62"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "rm_2b7784701f62",
+      "roomCode": "HNUPAF",
+      "hostId": "usr_71e109ce0e76",
+      "gameType": "blackjack",
+      "maxPlayers": 2,
+      "status": "waiting",
+      "players": [
+        {
+          "uid": "usr_71e109ce0e76",
+          "username": "KifVIP_1895",
+          "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=KifVIP_1895",
+          "stakeOffer": {
+            "snackItemId": "snack_egg",
+            "snackName": "Egg",
+            "coins": 50
+          },
+          "potApproved": true
+        },
+        {
+          "uid": "player_tunde",
+          "username": "Tunde",
+          "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=Tunde",
+          "stakeOffer": {
+            "snackItemId": "snack_monday",
+            "snackName": "Monday Snack",
+            "coins": 50
+          },
+          "potApproved": true,
+          "isBot": true
+        }
+      ],
+      "playerIds": [
+        "usr_71e109ce0e76",
+        "player_tunde"
+      ],
+      "gameState": {
+        "phase": "lobby",
+        "turnIndex": 0,
+        "turnDeadline": 0
+      },
+      "createdAt": "2026-11-24T09:08:15.436Z",
+      "updatedAt": "2026-11-24T09:08:15.436Z"
+    },
+    {
+      "id": "rm_51a2cfda8120",
+      "roomCode": "2UXPM4",
+      "hostId": "usr_71e109ce0e76",
+      "gameType": "blackjack",
+      "maxPlayers": 4,
+      "status": "finished",
+      "players": [
+        {
+          "uid": "usr_71e109ce0e76",
+          "username": "KifVIP_1895",
+          "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=KifVIP_1895",
+          "stakeOffer": {
+            "snackItemId": "snack_egg",
+            "snackName": "Egg",
+            "coins": 50
+          },
+          "potApproved": true,
+          "hand": [
+            {
+              "suit": "♥",
+              "rank": "8"
+            },
+            {
+              "suit": "♠",
+              "rank": "5"
+            }
+          ],
+          "stood": true,
+          "doubled": false,
+          "busted": false,
+          "blackjack": false,
+          "outcome": "lost",
+          "roundScore": 13
+        },
+        {
+          "uid": "player_tunde",
+          "username": "Tunde",
+          "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=Tunde",
+          "stakeOffer": {
+            "snackItemId": "snack_monday",
+            "snackName": "Monday Snack",
+            "coins": 50
+          },
+          "potApproved": true,
+          "isBot": true,
+          "hand": [
+            {
+              "suit": "♠",
+              "rank": "Q"
+            },
+            {
+              "suit": "♥",
+              "rank": "Q"
+            }
+          ],
+          "stood": true,
+          "doubled": false,
+          "busted": false,
+          "blackjack": false,
+          "outcome": "lost",
+          "roundScore": 20
+        }
+      ],
+      "playerIds": [
+        "usr_71e109ce0e76",
+        "player_tunde"
+      ],
+      "gameState": {
+        "phase": "resolved",
+        "turnIndex": 2,
+        "turnDeadline": 1795511310338,
+        "dealerHand": [
+          {
+            "suit": "♦",
+            "rank": "J"
+          },
+          {
+            "suit": "♦",
+            "rank": "A"
+          }
+        ],
+        "deck": [
+          {
+            "suit": "♣",
+            "rank": "Q"
+          },
+          {
+            "suit": "♦",
+            "rank": "3"
+          },
+          {
+            "suit": "♣",
+            "rank": "J"
+          },
+          {
+            "suit": "♥",
+            "rank": "3"
+          },
+          {
+            "suit": "♣",
+            "rank": "9"
+          },
+          {
+            "suit": "♠",
+            "rank": "J"
+          },
+          {
+            "suit": "♣",
+            "rank": "4"
+          },
+          {
+            "suit": "♠",
+            "rank": "7"
+          },
+          {
+            "suit": "♣",
+            "rank": "A"
+          },
+          {
+            "suit": "♣",
+            "rank": "6"
+          },
+          {
+            "suit": "♦",
+            "rank": "8"
+          },
+          {
+            "suit": "♥",
+            "rank": "2"
+          },
+          {
+            "suit": "♥",
+            "rank": "9"
+          },
+          {
+            "suit": "♥",
+            "rank": "10"
+          },
+          {
+            "suit": "♦",
+            "rank": "7"
+          },
+          {
+            "suit": "♦",
+            "rank": "9"
+          },
+          {
+            "suit": "♦",
+            "rank": "5"
+          },
+          {
+            "suit": "♠",
+            "rank": "3"
+          },
+          {
+            "suit": "♣",
+            "rank": "10"
+          },
+          {
+            "suit": "♠",
+            "rank": "6"
+          },
+          {
+            "suit": "♠",
+            "rank": "A"
+          },
+          {
+            "suit": "♥",
+            "rank": "J"
+          },
+          {
+            "suit": "♥",
+            "rank": "K"
+          },
+          {
+            "suit": "♥",
+            "rank": "A"
+          },
+          {
+            "suit": "♦",
+            "rank": "K"
+          },
+          {
+            "suit": "♦",
+            "rank": "Q"
+          },
+          {
+            "suit": "♥",
+            "rank": "4"
+          },
+          {
+            "suit": "♠",
+            "rank": "9"
+          },
+          {
+            "suit": "♠",
+            "rank": "K"
+          },
+          {
+            "suit": "♦",
+            "rank": "4"
+          },
+          {
+            "suit": "♣",
+            "rank": "8"
+          },
+          {
+            "suit": "♥",
+            "rank": "6"
+          },
+          {
+            "suit": "♠",
+            "rank": "10"
+          },
+          {
+            "suit": "♦",
+            "rank": "2"
+          },
+          {
+            "suit": "♦",
+            "rank": "6"
+          },
+          {
+            "suit": "♥",
+            "rank": "7"
+          },
+          {
+            "suit": "♥",
+            "rank": "5"
+          },
+          {
+            "suit": "♠",
+            "rank": "8"
+          },
+          {
+            "suit": "♣",
+            "rank": "3"
+          },
+          {
+            "suit": "♣",
+            "rank": "7"
+          },
+          {
+            "suit": "♣",
+            "rank": "2"
+          },
+          {
+            "suit": "♣",
+            "rank": "5"
+          },
+          {
+            "suit": "♠",
+            "rank": "2"
+          },
+          {
+            "suit": "♠",
+            "rank": "4"
+          },
+          {
+            "suit": "♦",
+            "rank": "10"
+          },
+          {
+            "suit": "♣",
+            "rank": "K"
+          }
+        ],
+        "summaryText": "Dealer finished at 21. Tunde leads the table!"
+      },
+      "createdAt": "2026-11-24T09:08:04.212Z",
+      "updatedAt": "2026-11-24T09:08:13.836Z",
+      "winnerId": "player_tunde"
+    },
+    {
+      "id": "room_vip_bj_1",
+      "roomCode": "VIP777",
+      "hostId": "player_tunde",
+      "gameType": "blackjack",
+      "maxPlayers": 6,
+      "status": "waiting",
+      "players": [
+        {
+          "uid": "player_tunde",
+          "username": "Tunde",
+          "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=Tunde",
+          "stakeOffer": {
+            "snackItemId": "snack_friday",
+            "snackName": "Friday Snack",
+            "coins": 100
+          },
+          "potApproved": true,
+          "isBot": true
+        },
+        {
+          "uid": "player_sarah",
+          "username": "Sarah",
+          "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=Sarah",
+          "stakeOffer": {
+            "snackItemId": "snack_monday",
+            "snackName": "Monday Snack",
+            "coins": 100
+          },
+          "potApproved": true,
+          "isBot": true
+        },
+        {
+          "uid": "demo_40e03bfdc1c6",
+          "username": "Guest_3916",
+          "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=Guest_3916",
+          "stakeOffer": {
+            "snackItemId": "snack_egg",
+            "snackName": "Egg",
+            "coins": 50
+          },
+          "potApproved": true
+        }
+      ],
+      "playerIds": [
+        "player_tunde",
+        "player_sarah",
+        "demo_40e03bfdc1c6"
+      ],
+      "gameState": {
+        "phase": "lobby",
+        "turnIndex": 0,
+        "turnDeadline": 0
+      },
+      "createdAt": "2026-11-24T09:05:34.769Z",
+      "updatedAt": "2026-11-24T09:06:43.542Z"
+    },
+    {
+      "id": "room_suya_dice_2",
+      "roomCode": "SUYA88",
+      "hostId": "player_kofi",
+      "gameType": "dice",
+      "maxPlayers": 4,
+      "status": "waiting",
+      "players": [
+        {
+          "uid": "player_kofi",
+          "username": "Kofi",
+          "avatarUrl": "https://api.dicebear.com/9.x/avataaars/svg?seed=Kofi",
+          "stakeOffer": {
+            "snackItemId": "snack_grilled_meat",
+            "snackName": "Grilled Meat / Suya Platter",
+            "coins": 150
+          },
+          "potApproved": true,
+          "isBot": true
+        }
+      ],
+      "playerIds": [
+        "player_kofi"
+      ],
+      "gameState": {
+        "phase": "lobby",
+        "turnIndex": 0,
+        "turnDeadline": 0
+      },
+      "createdAt": "2026-11-24T09:05:34.769Z",
+      "updatedAt": "2026-11-24T09:05:34.769Z"
+    }
+  ],
+  "ious": [
+    {
+      "id": "iou_b84bbb79e048",
+      "winnerId": "player_tunde",
+      "loserId": "usr_71e109ce0e76",
+      "winnerName": "Tunde",
+      "loserName": "KifVIP_1895",
+      "stakeLabel": "Egg + 50 Coins",
+      "gameType": "blackjack",
+      "settled": false,
+      "createdAt": "2026-11-24T09:08:13.836Z",
+      "updatedAt": "2026-11-24T09:08:13.836Z"
+    },
+    {
+      "id": "iou_a6919a598fea",
+      "winnerId": "demo_02918010795a",
+      "loserId": "player_tunde",
+      "winnerName": "Guest_4915",
+      "loserName": "Tunde",
+      "stakeLabel": "Monday Snack + 50 Coins",
+      "gameType": "blackjack",
+      "settled": false,
+      "createdAt": "2026-11-24T09:06:07.483Z",
+      "updatedAt": "2026-11-24T09:06:07.483Z"
+    },
+    {
+      "id": "iou_99510bc685da",
+      "winnerId": "demo_40e03bfdc1c6",
+      "loserId": "player_tunde",
+      "winnerName": "Guest_3916",
+      "loserName": "Tunde",
+      "stakeLabel": "Monday Snack + 50 Coins",
+      "gameType": "blackjack",
+      "settled": true,
+      "createdAt": "2026-11-24T09:06:38.100Z",
+      "updatedAt": "2026-11-24T09:06:42.295Z"
+    },
+    {
+      "id": "iou_30460d1512f7",
+      "winnerId": "usr_71e109ce0e76",
+      "loserId": "player_tunde",
+      "winnerName": "KifVIP_1895",
+      "loserName": "Tunde",
+      "stakeLabel": "Monday Snack + 50 Coins",
+      "gameType": "blackjack",
+      "settled": false,
+      "createdAt": "2026-11-24T09:08:03.256Z",
+      "updatedAt": "2026-11-24T09:08:03.256Z"
+    }
+  ],
+  "matchHistory": [
+    {
+      "id": "mh_fbe18a7feeb9",
+      "userId": "player_tunde",
+      "gameType": "blackjack",
+      "mode": "1v1",
+      "result": "lost",
+      "coinsDelta": -50,
+      "xpEarned": 23,
+      "summary": "Blackjack 2UXPM4 (20 vs Dealer 21)",
+      "createdAt": "2026-11-24T09:08:13.836Z"
+    },
+    {
+      "id": "mh_7beba4aa2065",
+      "userId": "usr_71e109ce0e76",
+      "gameType": "blackjack",
+      "mode": "1v1",
+      "result": "lost",
+      "coinsDelta": -50,
+      "xpEarned": 23,
+      "summary": "Blackjack 2UXPM4 (13 vs Dealer 21)",
+      "createdAt": "2026-11-24T09:08:13.836Z"
+    },
+    {
+      "id": "mh_e7f5fae55cc2",
+      "userId": "demo_40e03bfdc1c6",
+      "gameType": "blackjack",
+      "mode": "solo",
+      "result": "won",
+      "coinsDelta": 75,
+      "xpEarned": 60,
+      "summary": "Solo Blackjack win (20 vs 19)",
+      "createdAt": "2026-11-24T09:06:41.808Z"
+    }
+  ],
+  "ticker": [
+    {
+      "id": "tick_4ed9fae3f022",
+      "text": "Tunde won the pot in 2-player Blackjack (2UXPM4)",
+      "gameType": "blackjack",
+      "createdAt": "2026-11-24T09:08:13.836Z"
+    },
+    {
+      "id": "tick_af56ab306655",
+      "text": "Guest_3916 settled a Monday Snack + 50 Coins wager with Tunde",
+      "gameType": "blackjack",
+      "createdAt": "2026-11-24T09:06:42.296Z"
+    },
+    {
+      "id": "tick_1",
+      "text": "Tunde won a Friday Snack & Grilled Meat / Suya Platter in Group Blackjack",
+      "gameType": "blackjack",
+      "createdAt": "2026-11-24T09:05:34.768Z"
+    },
+    {
+      "id": "tick_2",
+      "text": "Sarah settled a Monday Snack wager with Kofi",
+      "gameType": "highlow",
+      "createdAt": "2026-11-24T09:05:34.768Z"
+    },
+    {
+      "id": "tick_3",
+      "text": "Kofi hit 35:1 on Number 17 in VIP Roulette for +700 Coins",
+      "gameType": "roulette",
+      "createdAt": "2026-11-24T09:05:34.768Z"
+    },
+    {
+      "id": "tick_4",
+      "text": "Maya swept a 4-player Dice Roll pot including a Thursday Snack",
+      "gameType": "dice",
+      "createdAt": "2026-11-24T09:05:34.768Z"
+    }
+  ]
+}

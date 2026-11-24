@@ -1,0 +1,364 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Shared hardened primitives
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Entity validation helpers
+    function isValidProfile(data) {
+      return data.keys().hasAll(['uid', 'username', 'coins', 'xp', 'winStreak', 'isOnline', 'presenceStatus', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly([
+          'uid', 'username', 'avatarUrl', 'coins', 'xp', 'winStreak',
+          'isOnline', 'presenceStatus', 'equippedCardBack', 'equippedFelt',
+          'equippedFrame', 'xpBoostUntil', 'lastDailySpin', 'createdAt', 'updatedAt'
+        ])
+        && isValidId(data.uid)
+        && data.username is string && data.username.size() >= 3 && data.username.size() <= 24 && data.username.matches('^[a-zA-Z0-9_]+$')
+        && (!('avatarUrl' in data) || (data.avatarUrl is string && data.avatarUrl.size() <= 512))
+        && data.coins is int && data.coins >= 0 && data.coins <= 100000000
+        && data.xp is int && data.xp >= 0 && data.xp <= 100000000
+        && data.winStreak is int && data.winStreak >= 0 && data.winStreak <= 10000
+        && data.isOnline is bool
+        && data.presenceStatus in ['Online', 'In Lobby', 'In Game', 'Offline']
+        && (!('equippedCardBack' in data) || (data.equippedCardBack is string && data.equippedCardBack.size() <= 64))
+        && (!('equippedFelt' in data) || (data.equippedFelt is string && data.equippedFelt.size() <= 64))
+        && (!('equippedFrame' in data) || (data.equippedFrame is string && data.equippedFrame.size() <= 64))
+        && (!('xpBoostUntil' in data) || (data.xpBoostUntil is int && data.xpBoostUntil >= 0))
+        && (!('lastDailySpin' in data) || (data.lastDailySpin is int && data.lastDailySpin >= 0))
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidFriendship(data) {
+      return data.keys().hasAll(['userId', 'friendId', 'status', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['userId', 'friendId', 'status', 'createdAt', 'updatedAt'])
+        && isValidId(data.userId)
+        && isValidId(data.friendId)
+        && data.userId != data.friendId
+        && data.status in ['pending', 'accepted']
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidMessage(data) {
+      return data.keys().hasAll(['senderId', 'senderName', 'content', 'createdAt'])
+        && data.keys().hasOnly(['senderId', 'senderName', 'receiverId', 'roomId', 'content', 'wagerId', 'reactions', 'createdAt'])
+        && isValidId(data.senderId)
+        && data.senderName is string && data.senderName.size() >= 1 && data.senderName.size() <= 32
+        && (!('receiverId' in data) || (data.receiverId is string && data.receiverId.size() <= 128))
+        && (!('roomId' in data) || (data.roomId is string && data.roomId.size() <= 128))
+        && data.content is string && data.content.size() >= 1 && data.content.size() <= 1000
+        && (!('wagerId' in data) || (data.wagerId is string && data.wagerId.size() <= 128))
+        && (!('reactions' in data) || data.reactions is map)
+        && data.createdAt is timestamp;
+    }
+
+    function isValidInventoryItem(data) {
+      return data.keys().hasAll(['userId', 'itemId', 'itemName', 'itemType', 'quantity', 'equipped', 'updatedAt'])
+        && data.keys().hasOnly(['userId', 'itemId', 'itemName', 'itemType', 'quantity', 'equipped', 'updatedAt'])
+        && isValidId(data.userId)
+        && data.itemId is string && data.itemId.size() >= 1 && data.itemId.size() <= 64
+        && data.itemName is string && data.itemName.size() >= 1 && data.itemName.size() <= 80
+        && data.itemType in ['snack', 'cosmetic', 'booster']
+        && data.quantity is int && data.quantity >= 0 && data.quantity <= 9999
+        && data.equipped is bool
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidWager(data) {
+      return data.keys().hasAll([
+          'creatorId', 'opponentId', 'creatorOffer', 'opponentOffer',
+          'creatorApproved', 'opponentApproved', 'gameType', 'status',
+          'createdAt', 'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'creatorId', 'opponentId', 'creatorOffer', 'opponentOffer',
+          'creatorApproved', 'opponentApproved', 'gameType', 'status',
+          'winnerId', 'roomId', 'createdAt', 'updatedAt'
+        ])
+        && isValidId(data.creatorId)
+        && isValidId(data.opponentId)
+        && data.creatorId != data.opponentId
+        && data.creatorOffer is map
+        && data.opponentOffer is map
+        && data.creatorApproved is bool
+        && data.opponentApproved is bool
+        && data.gameType in ['blackjack', 'highlow', 'roulette', 'dice']
+        && data.status in ['negotiating', 'active', 'completed', 'cancelled']
+        && (data.status != 'active' || (data.creatorApproved && data.opponentApproved))
+        && (!('winnerId' in data) || (data.winnerId is string && data.winnerId.size() <= 128))
+        && (!('roomId' in data) || (data.roomId is string && data.roomId.size() <= 128))
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidGameRoom(data) {
+      return data.keys().hasAll([
+          'roomCode', 'hostId', 'gameType', 'maxPlayers', 'status',
+          'players', 'playerIds', 'gameState', 'createdAt', 'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'roomCode', 'hostId', 'gameType', 'maxPlayers', 'status',
+          'players', 'playerIds', 'gameState', 'winnerId', 'createdAt', 'updatedAt'
+        ])
+        && data.roomCode is string && data.roomCode.size() == 6 && data.roomCode.matches('^[A-Z0-9]{6}$')
+        && isValidId(data.hostId)
+        && data.gameType in ['blackjack', 'highlow', 'roulette', 'dice']
+        && data.maxPlayers is int && data.maxPlayers >= 2 && data.maxPlayers <= 8
+        && data.status in ['waiting', 'playing', 'finished']
+        && data.players is list && data.players.size() >= 1 && data.players.size() <= 8
+        && data.playerIds is list && data.playerIds.size() >= 1 && data.playerIds.size() <= 8 && data.playerIds[0] is string
+        && data.gameState is map
+        && (!('winnerId' in data) || (data.winnerId is string && data.winnerId.size() <= 128))
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidIou(data) {
+      return data.keys().hasAll(['winnerId', 'loserId', 'winnerName', 'loserName', 'stakeLabel', 'gameType', 'settled', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['winnerId', 'loserId', 'winnerName', 'loserName', 'stakeLabel', 'gameType', 'settled', 'createdAt', 'updatedAt'])
+        && isValidId(data.winnerId)
+        && isValidId(data.loserId)
+        && data.winnerName is string && data.winnerName.size() >= 1 && data.winnerName.size() <= 32
+        && data.loserName is string && data.loserName.size() >= 1 && data.loserName.size() <= 32
+        && data.stakeLabel is string && data.stakeLabel.size() >= 1 && data.stakeLabel.size() <= 140
+        && data.gameType in ['blackjack', 'highlow', 'roulette', 'dice']
+        && data.settled is bool
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidMatchHistory(data) {
+      return data.keys().hasAll(['userId', 'gameType', 'mode', 'result', 'coinsDelta', 'xpEarned', 'summary', 'createdAt'])
+        && data.keys().hasOnly(['userId', 'gameType', 'mode', 'result', 'coinsDelta', 'xpEarned', 'summary', 'createdAt'])
+        && isValidId(data.userId)
+        && data.gameType in ['blackjack', 'highlow', 'roulette', 'dice']
+        && data.mode in ['solo', '1v1', 'group']
+        && data.result in ['won', 'lost', 'push']
+        && data.coinsDelta is int && data.coinsDelta >= -1000000 && data.coinsDelta <= 1000000
+        && data.xpEarned is int && data.xpEarned >= 0 && data.xpEarned <= 100000
+        && data.summary is string && data.summary.size() >= 1 && data.summary.size() <= 160
+        && data.createdAt is timestamp;
+    }
+
+    // Connection sentinel
+    match /test/{docId} {
+      allow get: if isValidId(docId);
+    }
+
+    // Profiles: public social fields only (no PII)
+    match /profiles/{userId} {
+      allow get: if isSignedIn() && isValidId(userId);
+      allow list: if isSignedIn();
+      allow create: if isVerified() && isValidId(userId) && isValidProfile(incoming())
+        && userId == request.auth.uid
+        && incoming().uid == request.auth.uid
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isVerified() && isValidId(userId) && isValidProfile(incoming())
+        && userId == request.auth.uid
+        && incoming().uid == existing().uid
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly([
+          'username', 'avatarUrl', 'coins', 'xp', 'winStreak',
+          'isOnline', 'presenceStatus', 'equippedCardBack', 'equippedFelt',
+          'equippedFrame', 'xpBoostUntil', 'lastDailySpin', 'updatedAt'
+        ]);
+      allow delete: if false;
+    }
+
+    // Friendships
+    match /friendships/{friendshipId} {
+      allow get: if isSignedIn() && isValidId(friendshipId)
+        && (existing().userId == request.auth.uid || existing().friendId == request.auth.uid);
+      allow list: if isSignedIn()
+        && (resource.data.userId == request.auth.uid || resource.data.friendId == request.auth.uid);
+      allow create: if isVerified() && isValidId(friendshipId) && isValidFriendship(incoming())
+        && incoming().userId == request.auth.uid
+        && incoming().status == 'pending'
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isVerified() && isValidId(friendshipId) && isValidFriendship(incoming())
+        && existing().status == 'pending'
+        && existing().friendId == request.auth.uid
+        && incoming().userId == existing().userId
+        && incoming().friendId == existing().friendId
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().status == 'accepted'
+        && incoming().diff(existing()).affectedKeys().hasOnly(['status', 'updatedAt']);
+      allow delete: if isVerified() && isValidId(friendshipId)
+        && (existing().userId == request.auth.uid || existing().friendId == request.auth.uid);
+    }
+
+    // Messages (1v1 DMs and room chats)
+    match /messages/{messageId} {
+      allow get: if isSignedIn() && isValidId(messageId)
+        && (existing().senderId == request.auth.uid
+            || existing().receiverId == request.auth.uid
+            || ('roomId' in existing() && existing().roomId is string));
+      allow list: if isSignedIn()
+        && (resource.data.senderId == request.auth.uid
+            || resource.data.receiverId == request.auth.uid
+            || ('roomId' in resource.data && resource.data.roomId is string));
+      allow create: if isVerified() && isValidId(messageId) && isValidMessage(incoming())
+        && incoming().senderId == request.auth.uid
+        && incoming().createdAt == request.time;
+      allow update: if isVerified() && isValidId(messageId) && isValidMessage(incoming())
+        && (existing().senderId == request.auth.uid
+            || existing().receiverId == request.auth.uid
+            || ('roomId' in existing() && existing().roomId is string))
+        && incoming().senderId == existing().senderId
+        && incoming().createdAt == existing().createdAt
+        && incoming().diff(existing()).affectedKeys().hasOnly(['reactions']);
+      allow delete: if false;
+    }
+
+    // Inventory items
+    match /inventory/{itemId} {
+      allow get: if isSignedIn() && isValidId(itemId) && existing().userId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isVerified() && isValidId(itemId) && isValidInventoryItem(incoming())
+        && incoming().userId == request.auth.uid
+        && incoming().updatedAt == request.time;
+      allow update: if isVerified() && isValidId(itemId) && isValidInventoryItem(incoming())
+        && existing().userId == request.auth.uid
+        && incoming().userId == existing().userId
+        && incoming().itemId == existing().itemId
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly(['quantity', 'equipped', 'updatedAt']);
+      allow delete: if isVerified() && isValidId(itemId) && existing().userId == request.auth.uid;
+    }
+
+    // 1v1 Wagers
+    match /wagers/{wagerId} {
+      allow get: if isSignedIn() && isValidId(wagerId)
+        && (existing().creatorId == request.auth.uid || existing().opponentId == request.auth.uid);
+      allow list: if isSignedIn()
+        && (resource.data.creatorId == request.auth.uid || resource.data.opponentId == request.auth.uid);
+      allow create: if isVerified() && isValidId(wagerId) && isValidWager(incoming())
+        && incoming().creatorId == request.auth.uid
+        && incoming().status == 'negotiating'
+        && incoming().opponentApproved == false
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isVerified() && isValidId(wagerId) && isValidWager(incoming())
+        && (existing().creatorId == request.auth.uid || existing().opponentId == request.auth.uid)
+        && existing().status in ['negotiating', 'active']
+        && incoming().creatorId == existing().creatorId
+        && incoming().opponentId == existing().opponentId
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && (
+          // Action 1: Creator updates offer or approval
+          (request.auth.uid == existing().creatorId
+            && existing().status == 'negotiating'
+            && incoming().diff(existing()).affectedKeys().hasOnly(['creatorOffer', 'creatorApproved', 'status', 'roomId', 'updatedAt']))
+          ||
+          // Action 2: Opponent updates offer or approval
+          (request.auth.uid == existing().opponentId
+            && existing().status == 'negotiating'
+            && incoming().diff(existing()).affectedKeys().hasOnly(['opponentOffer', 'opponentApproved', 'status', 'roomId', 'updatedAt']))
+          ||
+          // Action 3: Cancel wager by either party
+          (incoming().status == 'cancelled'
+            && incoming().diff(existing()).affectedKeys().hasOnly(['status', 'updatedAt']))
+          ||
+          // Action 4: Complete active wager
+          (existing().status == 'active'
+            && incoming().status == 'completed'
+            && incoming().diff(existing()).affectedKeys().hasOnly(['status', 'winnerId', 'updatedAt']))
+        );
+      allow delete: if false;
+    }
+
+    // Multiplayer Game Rooms (2-8 players)
+    match /game_rooms/{roomId} {
+      allow get: if isSignedIn() && isValidId(roomId)
+        && (existing().status == 'waiting' || request.auth.uid in existing().playerIds);
+      allow list: if isSignedIn()
+        && (resource.data.status == 'waiting' || request.auth.uid in resource.data.playerIds);
+      allow create: if isVerified() && isValidId(roomId) && isValidGameRoom(incoming())
+        && incoming().hostId == request.auth.uid
+        && request.auth.uid in incoming().playerIds
+        && incoming().status == 'waiting'
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isVerified() && isValidId(roomId) && isValidGameRoom(incoming())
+        && existing().status in ['waiting', 'playing']
+        && incoming().hostId == existing().hostId
+        && incoming().roomCode == existing().roomCode
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && (
+          // Action 1: Player joins waiting room
+          (existing().status == 'waiting'
+            && request.auth.uid in incoming().playerIds
+            && incoming().diff(existing()).affectedKeys().hasOnly(['players', 'playerIds', 'updatedAt']))
+          ||
+          // Action 2: Room member updates stake/approval or game turn state
+          (request.auth.uid in existing().playerIds
+            && incoming().diff(existing()).affectedKeys().hasOnly(['players', 'playerIds', 'gameState', 'status', 'winnerId', 'updatedAt']))
+        );
+      allow delete: if isVerified() && isValidId(roomId) && existing().hostId == request.auth.uid && existing().status == 'waiting';
+    }
+
+    // IOU Ledger (Who Owes Who)
+    match /ious/{iouId} {
+      allow get: if isSignedIn() && isValidId(iouId)
+        && (existing().winnerId == request.auth.uid || existing().loserId == request.auth.uid);
+      allow list: if isSignedIn()
+        && (resource.data.winnerId == request.auth.uid || resource.data.loserId == request.auth.uid);
+      allow create: if isVerified() && isValidId(iouId) && isValidIou(incoming())
+        && (incoming().winnerId == request.auth.uid || incoming().loserId == request.auth.uid)
+        && incoming().settled == false
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isVerified() && isValidId(iouId) && isValidIou(incoming())
+        && existing().settled == false
+        && existing().winnerId == request.auth.uid
+        && incoming().settled == true
+        && incoming().winnerId == existing().winnerId
+        && incoming().loserId == existing().loserId
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly(['settled', 'updatedAt']);
+      allow delete: if false;
+    }
+
+    // Match History
+    match /match_history/{matchId} {
+      allow get: if isSignedIn() && isValidId(matchId) && existing().userId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isVerified() && isValidId(matchId) && isValidMatchHistory(incoming())
+        && incoming().userId == request.auth.uid
+        && incoming().createdAt == request.time;
+      allow update, delete: if false;
+    }
+  }
+}

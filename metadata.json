@@ -1,0 +1,6 @@
+{
+  "name": "SnackStakes",
+  "description": "Real-time multiplayer social casino lounge and friendly snack-betting platform with live rooms, food wagers, IOU ledger, and VIP progression.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
